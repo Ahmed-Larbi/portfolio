@@ -1,23 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import Intro from './components/Intro';
+import Portfolio from './components/Portfolio';
+import Timeliner from './components/Timeliner';
+import Github from "./assets/buttons/GitHub_Logo.png"
+import React from 'react';
+
 
 function App() {
+  const [theme, setTheme] = React.useState('light');
+
+  const toggleTheme = () => {
+    if(theme === 'light')
+    {
+      setTheme('dark')
+    }
+    else {
+      setTheme('light')
+    }
+  }
+
+  React.useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`App-${theme}`}>
+      <button onClick={toggleTheme} className="toggle__theme">{theme}</button>
+      <Intro theme={theme}/>
+      <aside> <a href="https://github.com/Ahmed-Larbi" className='github__link'> <img src={Github} alt=""/> </a> </aside>
+      <Portfolio theme={theme}/>
+      <Timeliner theme={theme}/>
     </div>
   );
 }
